@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <%- include('partials/htmlCss')%>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <%- include('partials/htmlHeader',{login, products})%>
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">             
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7">
+                                <div class="select-option">
+                                    <select class="sorting">
+                                        <option value="">Default Sorting</option>
+                                    </select>
+                                    <select class="p-show">
+                                        <option value="">Show:</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 text-right">
+                                <p>Show 01- 09 Of 36 Product</p>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="product-list">
+                        <div class="row">
+                            <% for(let i = 0; i < products.length; i++) {%> 
+                            <div id="imgContainer" class="col-lg-4 col-sm-6">
+                                <div class="product-item">
+                                    <div class="pi-pic">
+                                        <img src="<%= products[i].imgs[0] %> " alt="img">
+                                        <!-- <div class="sale pp-sale">Sale</div> -->
+                                        <div class="icon">
+                                            <i class="icon_heart_alt"></i>
+                                        </div>
+                                        <ul>
+                                            <li class="w-icon active"><a class="showDeleteModalBtn" productid="<%= products[i].id %>" href="#">Delete</a></li>
+                                            <li class="quick-view"><a href="/showproduct/<%= products[i].id %>">+ quick-view</a></li>
+                                            <li class="w-icon"><a href="#">Edit</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pi-text">
+                                        <div class="catagory-name"><%= products[i].name.trim() %> </div>
+                                        <a href="#">
+                                            <h5><%= products[i].color %> </h5>
+                                        </a>
+                                        <div class="product-price">
+                                            €14,00 
+                                            <span>€<%= products[i].price %> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %> 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/img/logo-carousel/logo-1.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/img/logo-carousel/logo-2.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/img/logo-carousel/logo-3.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/img/logo-carousel/logo-4.png" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="/img/logo-carousel/logo-5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+    <!-- Footer Section Begin -->
+    <%- include('partials/htmlFooter')%>
+    <!-- Footer Section End -->
+    <div class="modal" tabindex="-1" role="dialog" id="deleteConfirmModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This Product gonna be deleted. Are you sure that you want to delete it  ..!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" style="background-color: red;" id="deleteProductBtn">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Js Plugins -->
+    <%- include('partials/htmlJs')%> 
+    <script>
+        let productid
+        document.querySelectorAll('.showDeleteModalBtn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault()
+                $('#deleteConfirmModal').modal('show')
+                productid = e.target.getAttribute('productid')
+                console.log(typeof productid);
+            })
+        })
+        document.querySelector('#deleteProductBtn').addEventListener('click', (e) => {
+            e.preventDefault()
+            fetch('/admin/deleteProduct', {
+                method: 'POST',
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body: JSON.stringify({productid})
+           
+            }).then(response => {
+                console.log(typeof productid);
+                $('#deleteConfirmModal').modal('hide')
+                if(response.status == 200) {
+                    
+                    response.json().then(data => {
+                        if(data === 1) {
+                            document.querySelector('#imgContainer').remove()
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                } else {
+                    alert('error response')
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        })
+    </script>
+</body>
+
+</html>

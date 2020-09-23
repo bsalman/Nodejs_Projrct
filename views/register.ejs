@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <%- include('partials/htmlCss')%>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <%- include('partials/htmlHeader',{login})%>
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <span>Register</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Form Section Begin -->
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <h2>Register</h2>
+                        <form action="#">
+                            <div class="group-input">
+                                <label for="nameInp">Name *</label>
+                                <input type="text" id="nameInp">
+                            </div>
+                            <div class="group-input">
+                                <label for="emailInp">Email address *</label>
+                                <input type="text" id="emailInp">
+                            </div>
+                            <div class="group-input">
+                                <label for="passInp">Password *</label>
+                                <input type="text" id="passInp">
+                            </div>
+                            <div class="group-input">
+                                <label for="con-passInp">Confirm Password *</label>
+                                <input type="text" id="con-passInp">
+                            </div>
+                            <button type="submit" class="site-btn register-btn" id="submitBtn">REGISTER</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="/login" class="or-login">Or Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+    <!- Modal -!>
+        <div class="modal" tabindex="-1" role="dialog" id="resultModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partner Logo Section Begin -->
+        <div class="partner-logo">
+            <div class="container">
+                <div class="logo-carousel owl-carousel">
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="img/logo-carousel/logo-1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="img/logo-carousel/logo-2.png" alt="">
+                        </div>
+                    </div>
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="img/logo-carousel/logo-3.png" alt="">
+                        </div>
+                    </div>
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="img/logo-carousel/logo-4.png" alt="">
+                        </div>
+                    </div>
+                    <div class="logo-item">
+                        <div class="tablecell-inner">
+                            <img src="img/logo-carousel/logo-5.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Partner Logo Section End -->
+
+        <%- include('partials/htmlFooter')%>
+        <!-- Footer Section End -->
+
+        <!-- Js Plugins -->
+        <%- include('partials/htmlJs')%>
+        <!-- Js Plugins -->
+        <script>
+            document.querySelector('#submitBtn').addEventListener('click', e => {
+                e.preventDefault();
+                const name = document.querySelector('#nameInp')
+                const email = document.querySelector('#emailInp');
+                const password = document.querySelector('#passInp');
+                const rePassword = document.querySelector('#con-passInp');
+                if (email.value.trim() && password.value.trim() && password.value === rePassword.value) {
+                    //creating sind Object
+                    const sendObj = {
+                        name:name.value.trim(),
+                        email: email.value.trim(),
+                        password: password.value.trim(),
+                        rePassword: rePassword.value.trim()
+
+                    }
+                    // using fetch to send Data to server sid 
+                    fetch('/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(sendObj)
+                    }).then(response => {
+                         console.log(response.status);
+                        if (response.status == 200) {
+                            response.json().then(data => {
+                                // console.log(data);
+                                switch (data) {
+                                    case 1:
+                                        showModal(false, "Register Success",
+                                            "you can go to login page...")
+                                         email.value='';
+                                        password.value = '';
+                                        rePassword.value = ''
+                                        break;
+                                    case 2:
+                                        showModal(true, "missing entries",
+                                            "you miss some entries or your password does not match rePassword"
+                                        )
+                                        break;
+                                    case 3:
+                                        showModal(true, "Email is registered",
+                                            "this email already registered to the system")
+                                        break;
+                                    case 4:
+                                        showModal(true, "Server Error",
+                                            "Something unexpected happened. please contact the system Administrator"
+                                        )
+                                        break;
+
+
+                                    default:
+                                        showModal(true, "Server Error",
+                                            "Something unexpected happened. please contact the system Administrator"
+                                        )
+                                        break;
+                                }
+
+
+                            }).catch(error => {
+                                showModal(true, "error on getting data",
+                                    'please contact the Administrator')
+                            })
+                        } else {
+                            showModal(true, "response error", "response status not 200")
+                        }
+
+                    }).catch(error => {
+                        console.log(error);
+                        showModal(true, "server side error", error.message)
+
+                    })
+
+                } else {
+                    showModal(true, "missing entries",
+                        "you miss some entries or your password does not match rePassword")
+                }
+            })
+        </script>
+
+</body>
+
+</html>

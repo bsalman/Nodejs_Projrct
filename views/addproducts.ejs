@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fashi | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <%- include('partials/htmlCss')%>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+
+    <%- include('partials/htmlHeader',{login})%>
+
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+  
+
+    <!-- Footer Section Begin -->
+
+    <section class="static about-sec">
+        <div class="container">
+            <h1>My Account / Add Product</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's printer took a galley of type and scrambled it to make a type specimen book. It has survived
+                not only fiveLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem </p>
+            <div class="form">
+                <form>
+                    <div class="form-group">
+                        <label for="productNameInp"><h4>Product Name</h4></label>
+                        <input type="text" class="form-control" id="productNameInp" placeholder="Product Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="productImgsInp"><h4>Product Images</h4></label>
+                        <input type="file" class="form-control-file" multiple id="productImgsInp"
+                            accept="image/x-png,image/gif,image/jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescriptionInp"><h4>Product Description</h4></label>
+                        <textarea class="form-control" id="productDescriptionInp"></textarea>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Categories</h4>
+
+                        <input type="text" class="form-control" id="productCategoriesInp">
+           
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Price</h4>
+                        <div class="filter-range-wrap">
+                            <div class="range-slider">
+
+
+
+                                    <input type="number" class="form-control" id="productPriceInp">
+
+                                    <!-- <input type="text" id="minamount"> -->
+
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Color</h4>
+                        <div class="fw-color-choose">
+
+                            <input type="text" class="form-control" id="productColorInp">
+                      
+                  
+                        </div>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Size</h4>
+                        <div class="fw-size-choose">
+
+                            <input type="text" class="form-control" id="productSizeInp">
+                            
+                        </div> 
+
+
+                          
+
+
+
+                    </div>
+                    <button class="btn btn-success mt-3" id="productSaveBtn">save</button>
+                </form>
+            </div>
+        </div>
+        
+    </section>
+    <br> 
+    <br>
+    <%- include('partials/htmlFooter')%>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <%- include('partials/htmlJs')%> 
+
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script>
+         tinymce.init({
+
+selector: '#productDescriptionInp',
+/* theme of the editor */
+theme: "silver",
+skin: "oxide-dark",
+
+/* width and height of the editor */
+width: "100%",
+height: 300,
+
+/* display statusbar */
+statubar: true,
+
+/* plugin */
+plugins: [
+    "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+    "save table contextmenu directionality emoticons template paste textcolor"
+],
+
+/* toolbar */
+toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+
+/* style */
+style_formats: [{
+        title: "Headers",
+        items: [{
+                title: "Header 1",
+                format: "h1"
+            },
+            {
+                title: "Header 2",
+                format: "h2"
+            },
+            {
+                title: "Header 3",
+                format: "h3"
+            },
+            {
+                title: "Header 4",
+                format: "h4"
+            },
+            {
+                title: "Header 5",
+                format: "h5"
+            },
+            {
+                title: "Header 6",
+                format: "h6"
+            }
+        ]
+    },
+    {
+        title: "Inline",
+        items: [{
+                title: "Bold",
+                icon: "bold",
+                format: "bold"
+            },
+            {
+                title: "Italic",
+                icon: "italic",
+                format: "italic"
+            },
+            {
+                title: "Underline",
+                icon: "underline",
+                format: "underline"
+            },
+            {
+                title: "Strikethrough",
+                icon: "strikethrough",
+                format: "strikethrough"
+            },
+            {
+                title: "Superscript",
+                icon: "superscript",
+                format: "superscript"
+            },
+            {
+                title: "Subscript",
+                icon: "subscript",
+                format: "subscript"
+            },
+            {
+                title: "Code",
+                icon: "code",
+                format: "code"
+            }
+        ]
+    },
+    {
+        title: "Blocks",
+        items: [{
+                title: "Paragraph",
+                format: "p"
+            },
+            {
+                title: "Blockquote",
+                format: "blockquote"
+            },
+            {
+                title: "Div",
+                format: "div"
+            },
+            {
+                title: "Pre",
+                format: "pre"
+            }
+        ]
+    },
+    {
+        title: "Alignment",
+        items: [{
+                title: "Left",
+                icon: "alignleft",
+                format: "alignleft"
+            },
+            {
+                title: "Center",
+                icon: "aligncenter",
+                format: "aligncenter"
+            },
+            {
+                title: "Right",
+                icon: "alignright",
+                format: "alignright"
+            },
+            {
+                title: "Justify",
+                icon: "alignjustify",
+                format: "alignjustify"
+            }
+        ]
+    }
+]
+});
+
+
+
+        document.querySelector('#productSaveBtn').addEventListener('click', (e) => {
+            e.preventDefault()
+            const productName = document.querySelector('#productNameInp').value
+            const productDescription = tinymce.get("productDescriptionInp").getContent();
+            const productImgs = document.querySelector('#productImgsInp').files
+            const productCategories = document.querySelector('#productCategoriesInp').value
+            const productColor = document.querySelector('#productColorInp').value
+            const productPrice = document.querySelector('#productPriceInp').value
+            const productSize = document.querySelector('#productSizeInp').value
+            const fd = new FormData()
+            fd.append('productName', productName)
+            fd.append('productDescription', productDescription)
+            
+            for(let i = 0; i < productImgs.length; i++){
+                fd.append('productImg' + i, productImgs[i])
+            }
+            fd.append('productCategories', productCategories)
+            fd.append('productColor', productColor)
+            fd.append('productPrice', productPrice)
+            fd.append('productSize', productSize)
+            let url ='/admin/addproducts'
+            fetch(url, {
+                method: 'POST',
+                body: fd
+            }).then(response => {
+                console.log(response);
+                if(response.status == 200){
+                    response.json().then(data => {
+                        
+                        console.log(data);
+                    })
+                }
+            })
+        })
+    </script>
+    <script>
+        function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    $(".dropdown-menu li a").click(function(){
+
+       $(".btn:first-child").text($(this).text());
+       $(".btn:first-child").val($(this).text());
+
+    });
+    $(".dropdown-menu1 li a").click(function(){
+
+$(".btn:first-child").text($(this).text());
+$(".btn:first-child").val($(this).text());
+
+});
+$(".dropdown-menu2 li a").click(function(){
+
+$(".btn:first-child").text($(this).text());
+$(".btn:first-child").val($(this).text());
+
+});
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
